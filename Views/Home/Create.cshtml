@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+<div>
+    <h1 style="float: left;">@ViewData["Title"]</h1>
+    <button class="btn btn-primary" style="float: right;" data-toggle="modal" data-target="#myModal">Create New</button>
+</div>
+
+
+<!--Display Dinks from an endpoint-->
+<ul class="list-group" id="list-group" style="padding-top: 20vh;"></ul>
+
+<!--Modal-->
+<div class="modal" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Dink</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="https://localhost:5001/api/Dinks/CreateDinks" method="POST" enctype="multipart/form-data" target="hiddenFrame">
+                    <div class="form-group">
+                        <label>Latitude</label><br />
+                        <input id="lat" type="text" name="geoX"/>
+                        <small class="form-text text-muted">e.x 40.4173</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Longitude</label><br />
+                        <input id="lng" type="text" name="geoY"/>
+                        <small class="form-text text-muted">e.x -82.9071</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label><br />
+                        <input id="date" type="date" name="dateNow" required pattern="\d{4}-\d{2}-\d{2}">
+                    </div>
+                    <div class="form-group">
+                        <label>Add an image</label><br />
+                        <input id="img" type="file" name="inputPhotos" multiple />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Edit Modal-->
+<div class="modal" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Dink</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-form" method="POST" action="https://localhost:5001/api/Dinks/UpdateDinks" enctype="multipart/form-data" target="hiddenFrame">
+                    <input id="dink-id" type="hidden" name="DeerId" value="" />
+                    <div class="form-group">
+                        <label>Latitude</label><br />
+                        <input id="edit-lat" type="text" name="geoX" value="" />
+                        <small class="form-text text-muted">e.x 40.4173</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Longitude</label><br />
+                        <input id="edit-lng" type="text" name="geoY" />
+                        <small class="form-text text-muted">e.x -82.9071</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label><br />
+                        <input id="edit-date" type="date" name="dateNow" required pattern="\d{4}-\d{2}-\d{2}">
+                    </div>
+                    <div class="form-group">
+                        <label>Add an image</label><br />
+                        <input id="img" type="file" name="inputPhotos" multiple />
+                    </div>
+                    <button id="edit-submit" type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </form>
+                <div class="Edit-Images" id="Edit-Images" style="float: left;">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"></iframe>
